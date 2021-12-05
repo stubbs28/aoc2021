@@ -6,5 +6,16 @@ fn day1() {
     println!("part two: {}", s.scan(3));
 }
 fn main() {
-    //day1();
+    let args: Vec<String> = std::env::args().collect();
+    let mut day = 0;
+    if args.len() > 1 {
+        day = match args[1].parse::<i32>() {
+            Ok(i) => i,
+            Err(err) => panic!("not a valid day: {:?}", err),
+        }
+    }
+    match day {
+    1=>day1(),
+    _=>println!("invlid day selected"),
+    }
 }
