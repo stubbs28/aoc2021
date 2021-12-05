@@ -1,9 +1,16 @@
 mod sonar;
+mod navigation;
 fn day1() {
-    println!("==Day One==");
+    println!("==Day One: Sonar Sweep==");
     let s = sonar::Scanner::new("data/input1".to_string());
     println!("part one: {}", s.scan(1));
     println!("part two: {}", s.scan(3));
+}
+fn day2() {
+    println!("==Day Two: Dive==");
+    let mut h = navigation::Helm::new("data/input2".to_string());
+    h.navigate();
+    println!("part one: {}", h.location());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -16,6 +23,7 @@ fn main() {
     }
     match day {
     1=>day1(),
+    2=>day2(),
     _=>println!("invlid day selected"),
     }
 }
