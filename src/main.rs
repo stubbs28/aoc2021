@@ -9,8 +9,8 @@ fn day1() {
 fn day2() {
     println!("==Day Two: Dive==");
     let mut h = navigation::Helm::new("data/input2".to_string());
-    h.navigate();
-    println!("part one: {}", h.location());
+    println!("part one: {}", h.navigate(false));
+    println!("part two: {}", h.navigate(true));
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
