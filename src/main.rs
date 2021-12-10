@@ -17,6 +17,7 @@ fn day3() {
     println!("==Day Three: Binary Diagnostic==");
     let p = diagnostics::Power::new("data/input3".to_string());
     println!("part one: {}", p.consumption());
+    println!("part two: {}", p.life_support());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
