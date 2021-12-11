@@ -1,6 +1,7 @@
 mod sonar;
 mod navigation;
 mod diagnostics;
+mod games;
 fn day1() {
     println!("==Day One: Sonar Sweep==");
     let s = sonar::Scanner::new("data/input1".to_string());
@@ -19,6 +20,11 @@ fn day3() {
     println!("part one: {}", p.consumption());
     println!("part two: {}", p.life_support());
 }
+fn day4() {
+    println!("==Day Four: Giant Squid==");
+    let b = games::Bingo::new("data/input4".to_string());
+    println!("part one: {}", b.winning_score());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let mut day = 0;
@@ -32,6 +38,7 @@ fn main() {
     1=>day1(),
     2=>day2(),
     3=>day3(),
+    4=>day4(),
     _=>println!("invlid day selected"),
     }
 }
