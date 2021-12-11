@@ -35,6 +35,13 @@ fn day5() {
     v.map_diag();
     println!("part two: {}", v.danger_score());
 }
+mod day6;
+fn day6() {
+    println!("==Day Six: Lanternfish==");
+    let mut s = day6::School::new("data/input6".to_string());
+    println!("part one: {}", s.reproduce(80));
+    println!("part two: {}", s.reproduce(256 - 80));
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let mut day = 0;
@@ -50,6 +57,7 @@ fn main() {
     3=>day3(),
     4=>day4(),
     5=>day5(),
+    6=>day6(),
     _=>println!("invlid day selected"),
     }
 }
