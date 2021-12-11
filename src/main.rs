@@ -1,28 +1,28 @@
-mod sonar;
-mod navigation;
-mod diagnostics;
-mod games;
+mod day1;
 fn day1() {
     println!("==Day One: Sonar Sweep==");
-    let s = sonar::Scanner::new("data/input1".to_string());
+    let s = day1::Scanner::new("data/input1".to_string());
     println!("part one: {}", s.scan(1));
     println!("part two: {}", s.scan(3));
 }
+mod day2;
 fn day2() {
     println!("==Day Two: Dive==");
-    let mut h = navigation::Helm::new("data/input2".to_string());
+    let mut h = day2::Helm::new("data/input2".to_string());
     println!("part one: {}", h.navigate(false));
     println!("part two: {}", h.navigate(true));
 }
+mod day3;
 fn day3() {
     println!("==Day Three: Binary Diagnostic==");
-    let p = diagnostics::Power::new("data/input3".to_string());
+    let p = day3::Power::new("data/input3".to_string());
     println!("part one: {}", p.consumption());
     println!("part two: {}", p.life_support());
 }
+mod day4;
 fn day4() {
     println!("==Day Four: Giant Squid==");
-    let b = games::Bingo::new("data/input4".to_string());
+    let b = day4::Bingo::new("data/input4".to_string());
     println!("part one: {}", b.winning_score());
     println!("part one: {}", b.losing_score());
 }
