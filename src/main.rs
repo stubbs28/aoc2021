@@ -29,8 +29,11 @@ fn day4() {
 mod day5;
 fn day5() {
     println!("==Day Five: Hydrothermal Venture==");
-    let v = day5::VentMap::new("data/input5".to_string());
+    let mut v = day5::VentMap::new("data/input5".to_string());
+    v.map_horz_vert();
     println!("part one: {}", v.danger_score());
+    v.map_diag();
+    println!("part two: {}", v.danger_score());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
