@@ -121,4 +121,17 @@ impl Bingo {
         }
         b.score()
     }
+
+    pub fn losing_score(&self) -> i32 {
+        let mut b = &self.boards[0];
+        let mut t = b.winning_turn();
+        for i in &self.boards {
+            let wt = i.winning_turn();
+            if wt > t {
+                b = i;
+                t = wt;
+            }
+        }
+        b.score()
+    }
 }

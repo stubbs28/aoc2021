@@ -24,6 +24,7 @@ fn day4() {
     println!("==Day Four: Giant Squid==");
     let b = games::Bingo::new("data/input4".to_string());
     println!("part one: {}", b.winning_score());
+    println!("part one: {}", b.losing_score());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
