@@ -72,7 +72,6 @@ pub struct Bingo {
 
 impl Bingo {
     pub fn new(game: String) -> Bingo {
-        println!("{}", game);
         let mut reader = reader::BufReader::open(game).unwrap();
         let mut buffer = String::new();
         let mut rand = HashMap::with_capacity(100);

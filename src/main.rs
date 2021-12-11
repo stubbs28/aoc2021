@@ -26,6 +26,12 @@ fn day4() {
     println!("part one: {}", b.winning_score());
     println!("part one: {}", b.losing_score());
 }
+mod day5;
+fn day5() {
+    println!("==Day Five: Hydrothermal Venture==");
+    let v = day5::VentMap::new("data/input5".to_string());
+    println!("part one: {}", v.danger_score());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let mut day = 0;
@@ -40,6 +46,7 @@ fn main() {
     2=>day2(),
     3=>day3(),
     4=>day4(),
+    5=>day5(),
     _=>println!("invlid day selected"),
     }
 }
