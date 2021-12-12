@@ -42,6 +42,12 @@ fn day6() {
     println!("part one: {}", s.reproduce(80));
     println!("part two: {}", s.reproduce(256 - 80));
 }
+mod day7;
+fn day7() {
+    println!("==Day Seven: The Treachery of Whales==");
+    let c = day7::Crabs::new("data/input7".to_string());
+    println!("part one: {}", c.smallest_align_cost());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let mut day = 0;
@@ -58,6 +64,7 @@ fn main() {
     4=>day4(),
     5=>day5(),
     6=>day6(),
+    7=>day7(),
     _=>println!("invlid day selected"),
     }
 }
