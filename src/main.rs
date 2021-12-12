@@ -45,8 +45,9 @@ fn day6() {
 mod day7;
 fn day7() {
     println!("==Day Seven: The Treachery of Whales==");
-    let c = day7::Crabs::new("data/input7".to_string());
-    println!("part one: {}", c.smallest_align_cost());
+    let c = day7::Crabs::new("data/input7_test".to_string());
+    println!("part one: {}", c.human_align_cost());
+    println!("part two: {}", c.crab_align_cost());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();

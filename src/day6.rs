@@ -26,7 +26,7 @@ impl School {
     }
 
     pub fn reproduce(&mut self, days: i32) -> i64 {
-        for d in 0..days {
+        for _ in 0..days {
             let eggs = self.population.remove(0);
             self.population.push(eggs);
             self.population[6] += eggs;
@@ -36,9 +36,5 @@ impl School {
             c += f;
         }
         c
-    }
-
-    pub fn print(&self) {
-        println!("pop: {:#?}", self.population);
     }
 }

@@ -9,7 +9,7 @@ pub struct VentMap {
 
 impl VentMap {
     pub fn new(vents: String) -> VentMap {
-        let mut map = HashMap::new();
+        let map = HashMap::new();
         let mut p1 = Vec::<(i32, i32)>::new();
         let mut p2 = Vec::<(i32, i32)>::new();
         let mut reader = reader::BufReader::open(vents).unwrap();
@@ -73,10 +73,9 @@ impl VentMap {
                 xdif *= -1;
                 xdir *= -1;
             }
-            let mut ydif = p1.1 - p2.1;
+            let ydif = p1.1 - p2.1;
             let mut ydir = -1;
             if ydif < 0 {
-                ydif *= -1;
                 ydir *= -1;
             }
             for off in 0..=xdif {

@@ -1,10 +1,10 @@
 use std::io::prelude::*;
 use std::fs::File;
-use std::str::FromStr;
 use std::collections::HashMap;
 
 pub struct Crabs {
     map: HashMap::<i32, i32>,
+    range: (i32, i32),
 }
 
 impl Crabs {
@@ -16,8 +16,15 @@ impl Crabs {
         let s: Vec::<&str> = d.trim().split(",")
             .filter(|s| !s.is_empty())
             .collect();
+        let mut r: (i32, i32) = (-1, -1);
         for f in s {
             let pos = f.parse::<i32>().unwrap();
+            if r.0 == -1 || r.0 > pos {
+                r.0 = pos;
+            }
+            if r.1 < pos {
+                r.1 = pos;
+            }
             if let Some(e) = m.get_mut(&pos) {
                 *e += 1;
             } else {
@@ -26,13 +33,24 @@ impl Crabs {
         }
         Crabs {
             map: m,
+            range: r,
         }
     }
 
-    pub fn smallest_align_cost(&self) -> i32 {
+    pub fn human_align_cost(&self, ) -> i32 {
         let mut c = -1;
         for target in self.map.keys() {
-            let ac = self.align_cost(target);
+            let mut ac = 0;
+            for (key, val) in self.map.iter() {
+                if *key == *target {
+                    continue;
+                }
+                let mut diff = *key - *target;
+                if diff < 0 {
+                    diff *= -1;
+                }
+                ac += diff * val;
+            }
             if c == -1 || ac < c {
                 c = ac;
             }
@@ -40,22 +58,26 @@ impl Crabs {
         c
     }
 
-    pub fn align_cost(&self, target: &i32) -> i32 {
-        let mut c = 0;
-        for (key, val) in self.map.iter() {
-            if *key == *target {
-                continue;
+    pub fn crab_align_cost(&self, ) -> i32 {
+        let mut c = -1;
+        for target in self.range.0..self.range.1 {
+            let mut ac = 0;
+            for (key, val) in self.map.iter() {
+                if *key == target {
+                    continue;
+                }
+                let mut diff = *key - target;
+                if diff < 0 {
+                    diff *= -1;
+                }
+                for d in 0..diff {
+                    ac += (d + 1) * val;
+                }
             }
-            let mut diff = *key - *target;
-            if diff < 0 {
-                diff *= -1;
+            if c == -1 || ac < c {
+                c = ac;
             }
-            c += diff * val;
         }
         c
-    }
-
-    pub fn print(&self) {
-        println!("pop: {:#?}", self.map);
     }
 }
