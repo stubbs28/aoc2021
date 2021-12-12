@@ -45,9 +45,15 @@ fn day6() {
 mod day7;
 fn day7() {
     println!("==Day Seven: The Treachery of Whales==");
-    let c = day7::Crabs::new("data/input7_test".to_string());
+    let c = day7::Crabs::new("data/input7".to_string());
     println!("part one: {}", c.human_align_cost());
     println!("part two: {}", c.crab_align_cost());
+}
+mod day8;
+fn day8() {
+    println!("==Day Eight: Seven Segment Search==");
+    let n = day8::Notes::new("data/input8");
+    println!("part one: {}", n.known_count());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -66,6 +72,7 @@ fn main() {
     5=>day5(),
     6=>day6(),
     7=>day7(),
+    8=>day8(),
     _=>println!("invlid day selected"),
     }
 }
