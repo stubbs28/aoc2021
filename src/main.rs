@@ -61,9 +61,9 @@ fn day8() {
 mod day9;
 fn day9() {
     println!("==Day Nine: Smoke Basin==");
-    let h = day9::HeightMap::new("data/input9", 100 , 100);
+    let mut h = day9::HeightMap::new("data/input9", 100 , 100);
     println!("part one: {}", h.danger());
-    //h.print(5 * 10);
+    println!("part one: {}", h.basins());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
