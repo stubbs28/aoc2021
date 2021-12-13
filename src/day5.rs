@@ -9,7 +9,6 @@ pub struct VentMap {
 
 impl VentMap {
     pub fn new(vents: String) -> VentMap {
-        let map = HashMap::new();
         let mut p1 = Vec::<(i32, i32)>::new();
         let mut p2 = Vec::<(i32, i32)>::new();
         let mut reader = reader::BufReader::open(vents).unwrap();
@@ -22,7 +21,7 @@ impl VentMap {
             p2.push((ps2[0].parse::<i32>().unwrap(), ps2[1].parse::<i32>().unwrap()));
         }
         VentMap{
-            map: map,
+            map: HashMap::new(),
             p1: p1,
             p2: p2,
         }

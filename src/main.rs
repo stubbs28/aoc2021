@@ -52,8 +52,11 @@ fn day7() {
 mod day8;
 fn day8() {
     println!("==Day Eight: Seven Segment Search==");
-    let n = day8::Notes::new("data/input8");
+    let mut n = day8::Notes::new("data/input8");
     println!("part one: {}", n.known_count());
+    n.map_signals();
+    println!("part two: {}", n.output_sum());
+
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
