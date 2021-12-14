@@ -1,11 +1,12 @@
-#[path="utils/reader.rs"] mod reader;
+#[path = "utils/reader.rs"]
+mod reader;
 pub struct Scanner {
-    source: String
+    source: String,
 }
 
 impl Scanner {
     pub fn new(source: String) -> Scanner {
-        Scanner {source: source}
+        Scanner { source: source }
     }
 
     pub fn scan(&self, window: usize) -> i32 {
@@ -37,4 +38,3 @@ impl Scanner {
         count
     }
 }
-

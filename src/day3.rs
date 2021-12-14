@@ -1,4 +1,5 @@
-#[path="utils/reader.rs"] mod reader;
+#[path = "utils/reader.rs"]
+mod reader;
 
 pub struct Power {
     readout: String,
@@ -6,8 +7,8 @@ pub struct Power {
 
 pub fn frequent(ones: i32, zeros: i32) -> u32 {
     if ones >= zeros {
-        return 1 ;
-    } 
+        return 1;
+    }
     return 0;
 }
 
@@ -16,8 +17,8 @@ pub fn infrequent(ones: i32, zeros: i32) -> u32 {
         return frequent(ones, zeros);
     }
     if ones >= zeros {
-        return 0 ;
-    } 
+        return 0;
+    }
     return 1;
 }
 
@@ -25,9 +26,7 @@ pub type Freq = fn(i32, i32) -> u32;
 
 impl Power {
     pub fn new(readout: String) -> Power {
-        Power {
-            readout: readout,
-        }
+        Power { readout: readout }
     }
 
     pub fn life_support(&self) -> u32 {
@@ -47,7 +46,7 @@ impl Power {
         while let Some(line) = reader.read_line(&mut buffer) {
             let data = u32::from_str_radix(line.unwrap().trim(), 2).unwrap();
             if (data >> pos) == val {
-                if ((data >> (pos - 1)) & 1) > 0  {
+                if ((data >> (pos - 1)) & 1) > 0 {
                     ones += 1;
                 } else {
                     zeros += 1;
@@ -85,6 +84,6 @@ impl Power {
             }
             mask = mask << 1;
         }
-        gamma * (!gamma&0xFFF)
+        gamma * (!gamma & 0xFFF)
     }
 }

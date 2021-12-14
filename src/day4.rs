@@ -1,9 +1,10 @@
-#[path="utils/reader.rs"] mod reader;
+#[path = "utils/reader.rs"]
+mod reader;
 use std::collections::HashMap;
 
 pub struct Board {
-    tiles: Vec::<i32>,
-    visited: Vec::<i32>,
+    tiles: Vec<i32>,
+    visited: Vec<i32>,
     row: i32,
     col: i32,
 }
@@ -67,7 +68,7 @@ impl Board {
 }
 
 pub struct Bingo {
-    boards: Vec::<Board>,
+    boards: Vec<Board>,
 }
 
 impl Bingo {
@@ -79,12 +80,9 @@ impl Bingo {
         while let Some(line) = reader.read_line(&mut buffer) {
             let line = line.unwrap().trim();
             if rand.len() == 0 {
-                let l: Vec::<&str> = line.split(",").collect();
+                let l: Vec<&str> = line.split(",").collect();
                 for (i, s) in l.iter().enumerate() {
-                    rand.insert(
-                        s.parse::<i32>().unwrap(),
-                        i as i32,
-                    );
+                    rand.insert(s.parse::<i32>().unwrap(), i as i32);
                 }
                 continue;
             }
@@ -92,9 +90,7 @@ impl Bingo {
                 boards.push(Board::new(5, 5));
                 continue;
             }
-            let l: Vec::<&str> = line.split(" ")
-                .filter(|s| !s.is_empty())
-                .collect();
+            let l: Vec<&str> = line.split(" ").filter(|s| !s.is_empty()).collect();
             for i in l {
                 let num = i.parse::<i32>().unwrap();
                 let turn = rand[&num];
@@ -103,9 +99,7 @@ impl Bingo {
                 }
             }
         }
-        Bingo {
-            boards: boards,
-        }
+        Bingo { boards: boards }
     }
 
     pub fn winning_score(&self) -> i32 {

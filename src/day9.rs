@@ -1,6 +1,6 @@
-#[path="utils/reader.rs"] mod reader;
+#[path = "utils/reader.rs"]
+mod reader;
 use std::collections::HashMap;
-
 
 pub struct Point {
     n: i8,
@@ -22,13 +22,13 @@ impl Point {
     pub fn danger(&self) -> i32 {
         if self.height < self.n {
             return (self.height + 1).try_into().unwrap();
-        } 
+        }
         0
     }
     pub fn visited(&self) -> bool {
         self.visited
     }
-    pub fn visit(&mut self){
+    pub fn visit(&mut self) {
         self.visited = true;
     }
     pub fn add_height(&mut self, height: i8) {
@@ -47,14 +47,14 @@ impl Point {
 pub struct HeightMap {
     rows: i32,
     cols: i32,
-    points: HashMap::<(i32, i32), Point>,
+    points: HashMap<(i32, i32), Point>,
 }
 
 impl HeightMap {
     pub fn new(data: &str, rows: i32, cols: i32) -> HeightMap {
         let mut reader = reader::BufReader::open(data.to_string()).unwrap();
         let mut buffer = String::new();
-        let mut points: HashMap::<(i32, i32), Point> = HashMap::new();
+        let mut points: HashMap<(i32, i32), Point> = HashMap::new();
         let mut y = 0;
         while let Some(line) = reader.read_line(&mut buffer) {
             let mut x = 0;
@@ -79,7 +79,7 @@ impl HeightMap {
                         p.add_neighbor(h);
                         points.insert(down, p);
                     }
-                } 
+                }
                 // right
                 if (x + 1) < cols {
                     let right = (x + 1, y);
@@ -90,7 +90,7 @@ impl HeightMap {
                         p.add_neighbor(h);
                         points.insert(right, p);
                     }
-                } 
+                }
                 // left
                 if (x - 1) >= 0 {
                     let left = (x - 1, y);
@@ -106,7 +106,7 @@ impl HeightMap {
                     }
                 }
                 x += 1;
-            };
+            }
             y += 1;
         }
         HeightMap {
@@ -116,7 +116,7 @@ impl HeightMap {
         }
     }
 
-    fn basin(&mut self, h: i8, cord: (i32, i32)) -> i32{
+    fn basin(&mut self, h: i8, cord: (i32, i32)) -> i32 {
         let mut count = 0;
         let mut h: i8 = -1;
         match self.points.get_mut(&cord) {
@@ -147,10 +147,10 @@ impl HeightMap {
                 let c = (x, y);
                 match self.points.get_mut(&c) {
                     Some(p) => {
-                        if p.danger() == 0 { 
-                            continue; 
+                        if p.danger() == 0 {
+                            continue;
                         }
-                    },
+                    }
                     None => continue,
                 }
                 b.push(self.basin(-1, c));
@@ -197,4 +197,3 @@ mod tests {
         assert_eq!(1134, h.basins());
     }
 }
-

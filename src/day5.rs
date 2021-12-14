@@ -1,10 +1,11 @@
-#[path="utils/reader.rs"] mod reader;
+#[path = "utils/reader.rs"]
+mod reader;
 use std::collections::HashMap;
 
 pub struct VentMap {
-    map: HashMap::<(i32,i32),i32>,
-    p1: Vec::<(i32,i32)>,
-    p2: Vec::<(i32,i32)>,
+    map: HashMap<(i32, i32), i32>,
+    p1: Vec<(i32, i32)>,
+    p2: Vec<(i32, i32)>,
 }
 
 impl VentMap {
@@ -14,13 +15,19 @@ impl VentMap {
         let mut reader = reader::BufReader::open(vents).unwrap();
         let mut buffer = String::new();
         while let Some(line) = reader.read_line(&mut buffer) {
-            let l: Vec::<&str> = line.unwrap().trim().split(" -> ").collect();
-            let ps1: Vec::<&str> = l[0].split(",").collect();
-            let ps2: Vec::<&str> = l[1].split(",").collect();
-            p1.push((ps1[0].parse::<i32>().unwrap(), ps1[1].parse::<i32>().unwrap()));
-            p2.push((ps2[0].parse::<i32>().unwrap(), ps2[1].parse::<i32>().unwrap()));
+            let l: Vec<&str> = line.unwrap().trim().split(" -> ").collect();
+            let ps1: Vec<&str> = l[0].split(",").collect();
+            let ps2: Vec<&str> = l[1].split(",").collect();
+            p1.push((
+                ps1[0].parse::<i32>().unwrap(),
+                ps1[1].parse::<i32>().unwrap(),
+            ));
+            p2.push((
+                ps2[0].parse::<i32>().unwrap(),
+                ps2[1].parse::<i32>().unwrap(),
+            ));
         }
-        VentMap{
+        VentMap {
             map: HashMap::new(),
             p1: p1,
             p2: p2,
@@ -28,7 +35,7 @@ impl VentMap {
     }
 
     pub fn map_horz_vert(&mut self) {
-        for i in 0..self.p1.len(){
+        for i in 0..self.p1.len() {
             let p1 = self.p1[i];
             let p2 = self.p2[i];
             if p1.0 != p2.0 && p1.1 != p2.1 {
@@ -60,7 +67,7 @@ impl VentMap {
     }
 
     pub fn map_diag(&mut self) {
-        for i in 0..self.p1.len(){
+        for i in 0..self.p1.len() {
             let p1 = self.p1[i];
             let p2 = self.p2[i];
             if p1.0 == p2.0 || p1.1 == p2.1 {

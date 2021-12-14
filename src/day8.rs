@@ -1,44 +1,31 @@
-#[path="utils/reader.rs"] mod reader;
+#[path = "utils/reader.rs"]
+mod reader;
+use itertools::Itertools;
 use std::collections::HashMap;
 use std::collections::HashSet;
-use itertools::Itertools;
-
-// UNIQUE
-// 1: cf
-// 7: acf
-// 4: bcdf
-// 8: abcdefg
-
-// 2: adgce | (2 - 1) == 4 | (2 - 4) == 3 | (2 - 7) == 3
-// 3: adgcf | (3 - 1) == 3 | (3 - 4) == 2 | (3 - 7) == 2
-// 5: adgfb | (5 - 1) == 4 | (5 - 4) == 2 | (5 - 7) == 3
-//
-// 0: abcfge | (0 - 1) == 4 | (0 - 4) == 3 | (0 - 7) == 3
-// 6: abdefg | (6 - 1) == 5 | (6 - 4) == 3 | (6 - 7) == 4
-// 9: abcfgd | (9 - 1) == 4 | (9 - 4) == 2 | (9 - 7) == 3
 
 macro_rules! known_digit {
     ($i:expr) => {
         match $i {
-            2=> Some(1),
-            3=> Some(7),
-            4=> Some(4),
-            7=> Some(8),
-            _=> None
+            2 => Some(1),
+            3 => Some(7),
+            4 => Some(4),
+            7 => Some(8),
+            _ => None,
         }
     };
 }
 
 pub struct Display {
-    encoding: Vec::<String>, // ie. encoding[0] == "abcefg"
-    wireing: HashMap::<String, usize>, // ie. {"abcefg": 0}
-    segments: HashMap::<usize, HashSet::<char>>,
-    unknown: Vec::<String>,
-    digits: Vec::<String>, 
+    encoding: Vec<String>,           // ie. encoding[0] == "abcefg"
+    wireing: HashMap<String, usize>, // ie. {"abcefg": 0}
+    segments: HashMap<usize, HashSet<char>>,
+    unknown: Vec<String>,
+    digits: Vec<String>,
 }
 
 impl Display {
-    pub fn new(signals: &Vec::<&str>, segments: &Vec::<&str>) -> Display {
+    pub fn new(signals: &Vec<&str>, segments: &Vec<&str>) -> Display {
         let mut encoding = Vec::<String>::with_capacity(10);
         encoding.resize(10, "".to_string());
         let mut wireing = HashMap::new();
@@ -79,7 +66,7 @@ impl Display {
         for e in &self.digits {
             if self.wireing.get(e) != None {
                 count += 1;
-            } 
+            }
         }
         count
     }
@@ -119,7 +106,7 @@ impl Display {
                         self.map(5, pos);
                         found.insert(5);
                     }
-                },
+                }
                 6 => {
                     if !found.contains(&0) && self.sub_target(pos, (4, 3)) {
                         self.map(0, pos);
@@ -131,7 +118,7 @@ impl Display {
                         self.map(9, pos);
                         found.insert(9);
                     }
-                },
+                }
                 _ => panic!("this should be known"),
             }
         }
@@ -144,7 +131,7 @@ impl Display {
             if let Some(d) = self.wireing.get(e) {
                 out += d * off;
             } else {
-                return None
+                return None;
             }
             off /= 10;
         }
@@ -153,7 +140,7 @@ impl Display {
 }
 
 pub struct Notes {
-    notes: Vec::<Display>,
+    notes: Vec<Display>,
 }
 
 impl Notes {
@@ -162,14 +149,12 @@ impl Notes {
         let mut buffer = String::new();
         let mut notes = Vec::<Display>::new();
         while let Some(line) = reader.read_line(&mut buffer) {
-            let i: Vec::<&str> = line.unwrap().trim().split(" | ").collect();
-            let sig: Vec::<&str> = i[0].split(" ").collect();
-            let seg: Vec::<&str> = i[1].split(" ").collect();
+            let i: Vec<&str> = line.unwrap().trim().split(" | ").collect();
+            let sig: Vec<&str> = i[0].split(" ").collect();
+            let seg: Vec<&str> = i[1].split(" ").collect();
             notes.push(Display::new(&sig, &seg));
         }
-        Notes {
-            notes: notes,
-        }
+        Notes { notes: notes }
     }
     pub fn known_count(&self) -> i32 {
         let mut count = 0;
@@ -212,4 +197,3 @@ mod tests {
         assert_eq!(61229, notes.output_sum());
     }
 }
-

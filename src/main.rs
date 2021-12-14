@@ -56,12 +56,11 @@ fn day8() {
     println!("part one: {}", n.known_count());
     n.map_signals();
     println!("part two: {}", n.output_sum());
-
 }
 mod day9;
 fn day9() {
     println!("==Day Nine: Smoke Basin==");
-    let mut h = day9::HeightMap::new("data/input9", 100 , 100);
+    let mut h = day9::HeightMap::new("data/input9", 100, 100);
     println!("part one: {}", h.danger());
     println!("part one: {}", h.basins());
 }
@@ -75,15 +74,15 @@ fn main() {
         }
     }
     match day {
-    1=>day1(),
-    2=>day2(),
-    3=>day3(),
-    4=>day4(),
-    5=>day5(),
-    6=>day6(),
-    7=>day7(),
-    8=>day8(),
-    9=>day9(),
-    _=>println!("invlid day selected"),
+        1 => day1(),
+        2 => day2(),
+        3 => day3(),
+        4 => day4(),
+        5 => day5(),
+        6 => day6(),
+        7 => day7(),
+        8 => day8(),
+        9 => day9(),
+        _ => println!("invlid day selected"),
     }
 }

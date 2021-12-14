@@ -1,9 +1,9 @@
-use std::io::prelude::*;
 use std::fs::File;
+use std::io::prelude::*;
 use std::str::FromStr;
 
 pub struct School {
-    population: Vec::<i64>,
+    population: Vec<i64>,
 }
 
 impl School {
@@ -12,17 +12,14 @@ impl School {
         p.resize(9, 0);
         let mut file = File::open(data).expect("unable to open the file");
         let mut d = String::new();
-        file.read_to_string(&mut d).expect("unable to read the file");
-        let s: Vec::<&str> = d.trim().split(",")
-            .filter(|s| !s.is_empty())
-            .collect();
+        file.read_to_string(&mut d)
+            .expect("unable to read the file");
+        let s: Vec<&str> = d.trim().split(",").filter(|s| !s.is_empty()).collect();
         for f in s {
             let pos = usize::from_str(f).unwrap();
             p[pos] += 1
         }
-        School {
-            population: p,
-        }
+        School { population: p }
     }
 
     pub fn reproduce(&mut self, days: i32) -> i64 {

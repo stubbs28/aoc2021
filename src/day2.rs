@@ -1,4 +1,5 @@
-#[path="utils/reader.rs"] mod reader;
+#[path = "utils/reader.rs"]
+mod reader;
 
 pub struct Location {
     x: i64,
@@ -8,11 +9,7 @@ pub struct Location {
 
 impl Location {
     pub fn new_loc() -> Location {
-        Location {
-            x: 0,
-            y: 0,
-            aim: 0,
-        }
+        Location { x: 0, y: 0, aim: 0 }
     }
 
     pub fn hash(&self) -> i64 {
@@ -21,22 +18,22 @@ impl Location {
 
     pub fn translate(&mut self, dir: &str, delta: i64) {
         match dir {
-            "forward"=>self.x += delta,
-            "down"=>self.y += delta,
-            "up"=>self.y -= delta,
-            _=>panic!("thats not a valid direction")
+            "forward" => self.x += delta,
+            "down" => self.y += delta,
+            "up" => self.y -= delta,
+            _ => panic!("thats not a valid direction"),
         }
     }
 
     pub fn adv_translate(&mut self, dir: &str, delta: i64) {
         match dir {
-            "forward"=>{
+            "forward" => {
                 self.x += delta;
                 self.y += self.aim * delta;
-            },
-            "down"=>self.aim += delta,
-            "up"=>self.aim -= delta,
-            _=>panic!("thats not a valid direction")
+            }
+            "down" => self.aim += delta,
+            "up" => self.aim -= delta,
+            _ => panic!("thats not a valid direction"),
         }
     }
 }
@@ -47,17 +44,17 @@ pub struct Helm {
 
 impl Helm {
     pub fn new(course: String) -> Helm {
-        Helm {
-            course: course,
-        }
+        Helm { course: course }
     }
 
-    pub fn navigate(&mut self, aim: bool) -> i64{
+    pub fn navigate(&mut self, aim: bool) -> i64 {
         let mut reader = reader::BufReader::open(&self.course).unwrap();
         let mut buffer = String::new();
         let mut loc = Location::new_loc();
         while let Some(line) = reader.read_line(&mut buffer) {
-            let step: Vec<&str> = line.unwrap().trim()
+            let step: Vec<&str> = line
+                .unwrap()
+                .trim()
                 .split(" ")
                 .filter(|s| !s.is_empty())
                 .collect();
