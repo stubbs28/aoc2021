@@ -186,13 +186,13 @@ mod tests {
 
     #[test]
     fn part_one() {
-        let notes = Notes::new("data/input8_test");
+        let notes = Notes::new("data/test/input8");
         assert_eq!(26, notes.known_count());
     }
 
     #[test]
     fn part_two() {
-        let mut notes = Notes::new("data/input8_test");
+        let mut notes = Notes::new("data/test/input8");
         notes.map_signals();
         assert_eq!(61229, notes.output_sum());
     }

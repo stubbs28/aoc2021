@@ -64,9 +64,16 @@ fn day9() {
     println!("part one: {}", h.danger());
     println!("part one: {}", h.basins());
 }
+mod day10;
+fn day10() {
+    println!("==Day Ten: Syntax Scoring==");
+    let n = day10::Navigation::new("data/input10");
+    println!("part one: {}", n.corrupted_score());
+    println!("part two: {}", n.fixed_score());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut day = 0;
+    let mut day = 10;
     if args.len() > 1 {
         day = match args[1].parse::<i32>() {
             Ok(i) => i,
@@ -83,6 +90,7 @@ fn main() {
         7 => day7(),
         8 => day8(),
         9 => day9(),
+        10 => day10(),
         _ => println!("invlid day selected"),
     }
 }

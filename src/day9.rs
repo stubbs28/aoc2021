@@ -118,12 +118,12 @@ impl HeightMap {
 
     fn basin(&mut self, h: i8, cord: (i32, i32)) -> i32 {
         let mut count = 0;
-        let mut h: i8 = -1;
+        let n;
         match self.points.get_mut(&cord) {
             Some(p) => {
                 if !p.visited() && p.height() > h {
                     p.visit();
-                    h = p.height();
+                    n = p.height();
                     count += 1;
                 } else {
                     return count;
@@ -133,10 +133,10 @@ impl HeightMap {
                 return count;
             }
         }
-        count += self.basin(h, (cord.0, cord.1 + 1));
-        count += self.basin(h, (cord.0, cord.1 - 1));
-        count += self.basin(h, (cord.0 + 1, cord.1));
-        count += self.basin(h, (cord.0 - 1, cord.1));
+        count += self.basin(n, (cord.0, cord.1 + 1));
+        count += self.basin(n, (cord.0, cord.1 - 1));
+        count += self.basin(n, (cord.0 + 1, cord.1));
+        count += self.basin(n, (cord.0 - 1, cord.1));
         count
     }
 
@@ -158,7 +158,7 @@ impl HeightMap {
         }
         b.sort();
         let mut danger = Option::<i32>::None;
-        for i in 0..3 {
+        for _ in 0..3 {
             if let Some(d) = b.pop() {
                 match danger.as_mut() {
                     Some(v) => *v *= d,
@@ -187,13 +187,13 @@ mod tests {
 
     #[test]
     fn part_one() {
-        let h = HeightMap::new("data/input9_test", 5, 10);
+        let h = HeightMap::new("data/test/input9", 5, 10);
         assert_eq!(15, h.danger());
     }
 
     #[test]
     fn part_two() {
-        let mut h = HeightMap::new("data/input9_test", 5, 10);
+        let mut h = HeightMap::new("data/test/input9", 5, 10);
         assert_eq!(1134, h.basins());
     }
 }
