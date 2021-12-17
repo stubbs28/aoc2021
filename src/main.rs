@@ -78,9 +78,15 @@ fn day11() {
     println!("part one: {}", o.multi_step(100));
     println!("part two: {}", o.get_sync());
 }
+mod day12;
+fn day12() {
+    println!("==Day Twelve: Passage Pathing==");
+    let c = day12::Cave::new("data/input12");
+    println!("part one: {}", c.traverse());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut day = 11;
+    let mut day = 12;
     if args.len() > 1 {
         day = match args[1].parse::<i32>() {
             Ok(i) => i,
@@ -99,6 +105,7 @@ fn main() {
         9 => day9(),
         10 => day10(),
         11 => day11(),
+        12 => day12(),
         _ => println!("invlid day selected"),
     }
 }
