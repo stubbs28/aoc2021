@@ -71,9 +71,16 @@ fn day10() {
     println!("part one: {}", n.corrupted_score());
     println!("part two: {}", n.fixed_score());
 }
+mod day11;
+fn day11() {
+    println!("==Day Eleven: Dumbo Octopus==");
+    let mut o = day11::OctoModel::new("data/input11");
+    println!("part one: {}", o.multi_step(100));
+    println!("part two: {}", o.get_sync());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut day = 10;
+    let mut day = 11;
     if args.len() > 1 {
         day = match args[1].parse::<i32>() {
             Ok(i) => i,
@@ -91,6 +98,7 @@ fn main() {
         8 => day8(),
         9 => day9(),
         10 => day10(),
+        11 => day11(),
         _ => println!("invlid day selected"),
     }
 }

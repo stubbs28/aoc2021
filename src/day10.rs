@@ -4,7 +4,6 @@ use std::collections::HashMap;
 mod reader;
 
 pub struct Entry {
-    //line: String,
     cscore: i32,
     fscore: i64,
 }
@@ -37,10 +36,7 @@ impl Entry {
             fscore *= 5;
             fscore += fscoremap.get(&c).unwrap();
         }
-        Entry {
-            cscore: cscore,
-            fscore: fscore,
-        }
+        Entry { cscore, fscore }
     }
     pub fn cscore(&self) -> i32 {
         self.cscore
@@ -62,7 +58,7 @@ impl Navigation {
         while let Some(line) = reader.read_line(&mut buffer) {
             lines.push(Entry::new(line.unwrap().trim()));
         }
-        Navigation { lines: lines }
+        Navigation { lines }
     }
     pub fn corrupted_score(&self) -> i32 {
         self.lines.iter().map(|s| s.cscore()).sum()
