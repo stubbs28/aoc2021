@@ -83,11 +83,19 @@ fn day12() {
     println!("==Day Twelve: Passage Pathing==");
     let c = day12::Cave::new("data/input12");
     println!("part one: {}", c.traverse());
-    println!("part one: {}", c.traverse_extra());
+    println!("part two: {}", c.traverse_extra());
+}
+mod day13;
+fn day13() {
+    println!("==Day Thirteen: Transparent Origami==");
+    let mut p = day13::Paper::new("data/input13");
+    p.fold();
+    println!("part one: {}", p.count(0));
+    println!("part two:\n{}", p.to_string());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut day = 12;
+    let mut day = 13;
     if args.len() > 1 {
         day = match args[1].parse::<i32>() {
             Ok(i) => i,
@@ -107,6 +115,7 @@ fn main() {
         10 => day10(),
         11 => day11(),
         12 => day12(),
+        13 => day13(),
         _ => println!("invlid day selected"),
     }
 }
