@@ -93,9 +93,15 @@ fn day13() {
     println!("part one: {}", p.count(0));
     println!("part two:\n{}", p.to_string());
 }
+mod day14;
+fn day14() {
+    println!("==Day Fourteen: Extended Polymerization==");
+    let p = day14::Polymer::new("data/input14");
+    println!("part one: {}", p.run(10));
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut day = 13;
+    let mut day = 14;
     if args.len() > 1 {
         day = match args[1].parse::<i32>() {
             Ok(i) => i,
@@ -116,6 +122,7 @@ fn main() {
         11 => day11(),
         12 => day12(),
         13 => day13(),
+        14 => day14(),
         _ => println!("invlid day selected"),
     }
 }
