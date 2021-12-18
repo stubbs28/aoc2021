@@ -83,6 +83,7 @@ fn day12() {
     println!("==Day Twelve: Passage Pathing==");
     let c = day12::Cave::new("data/input12");
     println!("part one: {}", c.traverse());
+    println!("part one: {}", c.traverse_extra());
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
