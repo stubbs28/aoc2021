@@ -44,7 +44,7 @@ pub struct Helm {
 
 impl Helm {
     pub fn new(course: String) -> Helm {
-        Helm { course: course }
+        Helm { course }
     }
 
     pub fn navigate(&mut self, aim: bool) -> i64 {
