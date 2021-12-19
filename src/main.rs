@@ -96,8 +96,9 @@ fn day13() {
 mod day14;
 fn day14() {
     println!("==Day Fourteen: Extended Polymerization==");
-    let p = day14::Polymer::new("data/input14");
+    let mut p = day14::Polymer::new("data/input14");
     println!("part one: {}", p.run(10));
+    println!("part two: {}", p.run(40));
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
