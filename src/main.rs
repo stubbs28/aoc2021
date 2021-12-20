@@ -100,9 +100,15 @@ fn day14() {
     println!("part one: {}", p.run(10));
     println!("part two: {}", p.run(40));
 }
+mod day15;
+fn day15() {
+    println!("==Day Fifteen: Chiton==");
+    let c = day15::Chiton::new("data/input15");
+    println!("part one: {}", c.shortest_path());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut day = 14;
+    let mut day = 15;
     if args.len() > 1 {
         day = match args[1].parse::<i32>() {
             Ok(i) => i,
@@ -123,7 +129,7 @@ fn main() {
         11 => day11(),
         12 => day12(),
         13 => day13(),
-        14 => day14(),
+        15 => day15(),
         _ => println!("invlid day selected"),
     }
 }
