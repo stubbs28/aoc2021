@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::collections::HashSet;
 #[path = "utils/reader.rs"]
 mod reader;
 
@@ -61,45 +62,29 @@ impl Chiton {
         let start = self.graph.first().unwrap();
         let target = self.graph.last().unwrap();
         let mut dist: HashMap<&Vertex, u32> = HashMap::new();
-        let mut prev: HashMap<&Vertex, Option<&Vertex>> = HashMap::new();
+        let mut prev: HashMap<&Vertex, &Vertex> = HashMap::new();
         let mut q: Vec<&Vertex> = Vec::<&Vertex>::new();
-        for v in &self.graph {
-            dist.insert(v, u32::MAX);
-            prev.insert(v, None);
-            q.push(v);
-        }
-        if let Some(d) = dist.get_mut(&start) {
-            *d = start.weight();
-        }
+        let mut inq: HashSet<&Vertex> = HashSet::new();
+        let mut done: HashSet<&Vertex> = HashSet::new();
+        dist.insert(&start, 0);
+        q.push(&start);
         while !q.is_empty() {
             // set u to smallest dist[u]
-            let mut u: (usize, Option<&Vertex>) = (0, None);
-            for (pos, qq) in q.iter_mut().enumerate() {
-                let distq = dist.get(qq).unwrap();
-                match u.1 {
-                    Some(uu) => {
-                        if dist.get(uu).unwrap() > distq {
-                            u = (pos, Some(qq));
-                        }
-                    }
-                    None => u = (pos, Some(qq)),
-                }
-            }
+            let u = q.pop().unwrap();
             // remove u from q
-            q.remove(u.0);
-            let uu = u.1.unwrap();
-            if uu == target {
-                let mut sum = uu.weight();
+            inq.remove(&u);
+            done.insert(u);
+            // we got to the target, we can stop.
+            if *u == *target {
+                let mut sum = u.weight();
                 let mut path = Vec::<&Vertex>::new();
-                let mut current = uu;
+                let mut current = u;
                 loop {
-                    let cur = prev.get(current).unwrap();
-                    match cur {
-                        Some(c) => {
-                            println!("V:{:?}", c);
-                            path.push(c);
-                            sum += c.weight();
-                            current = c;
+                    match prev.get(&current) {
+                        Some(pc) => {
+                            path.push(pc);
+                            sum += pc.weight();
+                            current = pc;
                         }
                         None => break,
                     }
@@ -107,15 +92,53 @@ impl Chiton {
                 return sum - start.weight();
             }
 
-            for pos in uu.neighbors(self.maxx, self.maxy) {
+            for pos in u.neighbors(self.maxx, self.maxy) {
                 let v = &self.graph[pos as usize];
-                let alt = dist.get(uu).unwrap() + v.weight();
-                let distv = dist.get_mut(v).unwrap();
-                if alt < *distv {
-                    *distv = alt;
-                    *prev.get_mut(v).unwrap() = u.1;
+                if done.contains(&v) {
+                    continue;
+                }
+                let mut alt = v.weight();
+                match dist.get(u) {
+                    Some(distu) => alt += *distu,
+                    None => {
+                        dist.insert(u, u32::MAX);
+                        alt += u32::MAX;
+                    }
+                }
+                let mut distv = u32::MAX;
+                match dist.get(v) {
+                    Some(dv) => distv = *dv,
+                    None => {
+                        dist.insert(v, distv);
+                    }
+                }
+                if alt < distv {
+                    match dist.get_mut(&v) {
+                        Some(dv) => *dv = alt,
+                        None => {
+                            dist.insert(&v, alt);
+                        }
+                    }
+                    match prev.get_mut(&v) {
+                        Some(pv) => *pv = u,
+                        None => {
+                            prev.insert(&v, u);
+                        }
+                    }
+                }
+                // NB: yes I know I can just binary search and do a sorted insert
+                // but I'm tired.
+                if !inq.contains(&v) {
+                    inq.insert(v);
+                    q.push(v);
                 }
             }
+            // NB: look... i'm sorry
+            q.sort_unstable_by(|a, b| {
+                let dista = dist.get(a).unwrap();
+                let distb = dist.get(b).unwrap();
+                distb.cmp(dista)
+            });
         }
         u32::MAX
     }
