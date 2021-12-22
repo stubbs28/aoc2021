@@ -104,7 +104,8 @@ mod day15;
 fn day15() {
     println!("==Day Fifteen: Chiton==");
     let c = day15::Chiton::new("data/input15");
-    println!("part one: {}", c.shortest_path());
+    println!("part one: {}", c.shortest_path(1));
+    println!("part one: {}", c.shortest_path(5));
 }
 fn main() {
     let args: Vec<String> = std::env::args().collect();
