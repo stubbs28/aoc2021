@@ -107,9 +107,16 @@ fn day15() {
     println!("part one: {}", c.shortest_path(1));
     println!("part one: {}", c.shortest_path(5));
 }
+mod day16;
+fn day16() {
+    println!("==Day Sixteen: Packet Decoder==");
+    let b = day16::BITS::new("data/input16");
+    println!("part one: {}", b.version_sum());
+    println!("part two: {}", b.value());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut day = 15;
+    let mut day = 16;
     if args.len() > 1 {
         day = match args[1].parse::<i32>() {
             Ok(i) => i,
@@ -130,7 +137,9 @@ fn main() {
         11 => day11(),
         12 => day12(),
         13 => day13(),
+        14 => day14(),
         15 => day15(),
+        16 => day16(),
         _ => println!("invlid day selected"),
     }
 }
