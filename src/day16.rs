@@ -66,12 +66,9 @@ impl Packet {
             len += 1;
             if data.unpack(index, start_bit, 1) == 0 {
                 let mut bcount = data.unpack(index, start_bit, 15) as usize;
-                println!("bcount:{}", bcount);
                 len += 15;
                 while bcount > 0 {
                     let p = Packet::new(index, start_bit, data);
-                    println!("{:#?}", p);
-                    println!("bcount:{}, plen:{}", bcount, p.len());
                     bcount -= p.len();
                     len += p.len();
                     operator_data.push(p);
@@ -93,7 +90,6 @@ impl Packet {
             operator_data,
             literal_data,
         };
-        println!("np: {:#?}", p);
         p
     }
     pub fn version_sum(&self) -> u32 {
