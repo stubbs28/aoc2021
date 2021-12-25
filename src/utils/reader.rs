@@ -7,7 +7,6 @@ pub struct BufReader {
     reader: io::BufReader<File>,
 }
 
-#[allow(dead_code)]
 impl BufReader {
     pub fn open(path: impl AsRef<std::path::Path>) -> io::Result<Self> {
         let file = File::open(path)?;

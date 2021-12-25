@@ -114,9 +114,15 @@ fn day16() {
     println!("part one: {}", b.version_sum());
     println!("part two: {}", b.value());
 }
+mod day17;
+fn day17() {
+    println!("==Day Seventeen: Trick Shot==");
+    let p = day17::Probe::new("data/input17");
+    println!("part one: {}", p.max_peak());
+}
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut day = 16;
+    let mut day = 17;
     if args.len() > 1 {
         day = match args[1].parse::<i32>() {
             Ok(i) => i,
@@ -140,6 +146,7 @@ fn main() {
         14 => day14(),
         15 => day15(),
         16 => day16(),
+        17 => day17(),
         _ => println!("invlid day selected"),
     }
 }

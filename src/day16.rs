@@ -1,7 +1,5 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-#[path = "utils/reader.rs"]
-mod reader;
 
 pub struct PacketData {
     data: Vec<u8>,
